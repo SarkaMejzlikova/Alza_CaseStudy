@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC691663-C76
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseStudy.WebApi", "src\CaseStudy.WebApi\CaseStudy.WebApi.csproj", "{06F8A08A-762B-4E41-A73B-EAE124B889AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseStudy.Domain", "src\CaseStudy.Domain\CaseStudy.Domain.csproj", "{FE05A9E4-6B44-4FBF-9900-FC84E73889E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{06F8A08A-762B-4E41-A73B-EAE124B889AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F8A08A-762B-4E41-A73B-EAE124B889AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F8A08A-762B-4E41-A73B-EAE124B889AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE05A9E4-6B44-4FBF-9900-FC84E73889E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE05A9E4-6B44-4FBF-9900-FC84E73889E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE05A9E4-6B44-4FBF-9900-FC84E73889E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE05A9E4-6B44-4FBF-9900-FC84E73889E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{06F8A08A-762B-4E41-A73B-EAE124B889AC} = {FC691663-C762-451C-9488-95F2E35F894C}
+		{FE05A9E4-6B44-4FBF-9900-FC84E73889E1} = {FC691663-C762-451C-9488-95F2E35F894C}
 	EndGlobalSection
 EndGlobal

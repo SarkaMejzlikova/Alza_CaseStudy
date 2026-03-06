@@ -24,3 +24,7 @@ C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\refint\Case
 C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\CaseStudy.WebApi.pdb
 C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\CaseStudy.WebApi.genruntimeconfig.cache
 C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\ref\CaseStudy.WebApi.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\CaseStudy.Domain.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\CaseStudy.Domain.pdb
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\CaseStudy.WebApi.csproj.AssemblyReference.cache
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\CaseStudy.WebApi.csproj.CopyComplete
