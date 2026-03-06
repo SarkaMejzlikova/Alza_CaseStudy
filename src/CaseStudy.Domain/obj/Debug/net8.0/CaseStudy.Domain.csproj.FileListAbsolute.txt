@@ -1,0 +1,12 @@
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\bin\Debug\net8.0\CaseStudy.Domain.deps.json
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\bin\Debug\net8.0\CaseStudy.Domain.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\bin\Debug\net8.0\CaseStudy.Domain.pdb
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.AssemblyInfoInputs.cache
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.AssemblyInfo.cs
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.csproj.CoreCompileInputs.cache
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.sourcelink.json
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\refint\CaseStudy.Domain.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\CaseStudy.Domain.pdb
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.Domain\obj\Debug\net8.0\ref\CaseStudy.Domain.dll
