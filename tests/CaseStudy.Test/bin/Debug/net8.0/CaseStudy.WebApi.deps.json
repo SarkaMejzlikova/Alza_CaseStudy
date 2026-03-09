@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "CaseStudy.WebApi/1.0.0": {
+        "dependencies": {
+          "CaseStudy.Domain": "1.0.0"
+        },
+        "runtime": {
+          "CaseStudy.WebApi.dll": {}
+        }
+      },
+      "CaseStudy.Domain/1.0.0": {
+        "runtime": {
+          "CaseStudy.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CaseStudy.WebApi/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CaseStudy.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
