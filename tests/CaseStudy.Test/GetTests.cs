@@ -3,6 +3,7 @@ namespace CaseStudy.Test;
 using System.Runtime;
 using CaseStudy.Domain.DTOs;
 using CaseStudy.Domain.Models;
+using CaseStudy.Persistence;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,9 @@ public class GetTests
     public void Get_AllProducts_ReturnsAllProducts()
     {
         // Arrange
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
+        var controller = new CaseStudyController(context);
+
         var record1 = new Product
         {
             ProductId = 1,
@@ -33,7 +37,6 @@ public class GetTests
             Quantity = 25
         };
 
-        var controller = new CaseStudyController();
         controller.ClearStorage();
         controller.AddProductToStorage(record1);
         controller.AddProductToStorage(record2);
@@ -58,7 +61,8 @@ public class GetTests
     public void Get_ReadWhenNoItemAvailable_ReturnsNotFound()
     {
         // Arrange
-        var controller = new CaseStudyController();
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
+        var controller = new CaseStudyController(context);
 
         // Act
         var result = controller.Read();
