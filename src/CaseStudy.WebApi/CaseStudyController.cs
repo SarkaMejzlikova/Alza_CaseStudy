@@ -16,7 +16,7 @@ public class CaseStudyController : ControllerBase
     private static List<Product> products = [];
 
     [HttpPost]
-    public ActionResult<IEnumerable<ProductGetResponseDto>> Create(ProductCreateRequestDto request)
+    public ActionResult<ProductGetResponseDto> Create(ProductCreateRequestDto request)
     {
         // vytvořím nový produkt
         var product = request.ToDomain();
@@ -26,13 +26,16 @@ public class CaseStudyController : ControllerBase
             product.ProductId = products.Count == 0 ? 1 : products.Max(p => p.ProductId) + 1;
             // přidám produkt
             products.Add(product);
-
-            return CreatedAtAction(product.Name, product);
         }
         catch (Exception ex)
         {
             return Problem(ex.Message, null, StatusCodes.Status500InternalServerError);
         }
+
+        return CreatedAtAction(
+            nameof(ReadById),
+            new { product = product.ProductId },
+            ProductGetResponseDto.FromDomain(product)); //201
     }
 
     [HttpGet]
@@ -54,23 +57,21 @@ public class CaseStudyController : ControllerBase
     }
 
     [HttpGet("{productId:int}")]
-    public IActionResult ReadById(int productId)
+    public ActionResult<ProductGetResponseDto> ReadById(int productId)
     {
+        Product? productToGet;
         try
         {
-            // najdu konkrétní produkt
-            var product = products.Find(p => p.ProductId == productId);
-            // neexistuje
-            if (product == null) { return NotFound(); } // 404
-            // načtu údaje
-            var result = ProductGetResponseDto.FromDomain(product);
-
-            return Ok(); //200
+            productToGet  = products.Find(p => p.ProductId == productId);
         }
         catch (Exception ex)
         {
             return Problem(ex.Message, null, StatusCodes.Status500InternalServerError); // 500
         }
+
+        return (productToGet is null)
+        ? NotFound() //404
+        : Ok(ProductGetResponseDto.FromDomain(productToGet)); //200
     }
 
     [HttpPut("{productId:int}")]
@@ -78,22 +79,24 @@ public class CaseStudyController : ControllerBase
     {
         try
         {
-            // najdu konkrétní produkt
-            var product = products.Find(p => p.ProductId == productId);
-            // neexistuje
-            if (product == null) { return NotFound(); } // 404
-            // nové údaje pro produkt
-            var result = request.ToDomain();
-            // index v listu
+            // Index v listu
             int index = products.FindIndex(p => p.ProductId == productId);
+            // neexistuje
+            if (index == -1) { return NotFound(); } // 404
+            // nové údaje pro produkt
+            var updatedItem = request.ToDomain();
+            // doplním Id, které chci aktualizovat
+            updatedItem.ProductId = productId;
             // aktualizace
-            products[index] = result;
-            return NoContent(); // 204
+            products[index] = updatedItem;
+
         }
         catch (Exception ex)
         {
             return Problem(ex.Message, null, StatusCodes.Status500InternalServerError);
         }
+
+        return NoContent(); // 204
     }
 
     [HttpDelete("{productId:int}")]
@@ -107,16 +110,22 @@ public class CaseStudyController : ControllerBase
             if (product == null) { return NotFound(); } // 404
             // odstraním ze seznamu
             products.Remove(product);
-            return NoContent(); // 204
         }
         catch (Exception ex)
         {
             return Problem(ex.Message, null, StatusCodes.Status500InternalServerError);
         }
+
+        return NoContent(); // 204
     }
 
     public void AddProductToStorage(Product product)
     {
         products.Add(product);
+    }
+
+    public void ClearStorage()
+    {
+        products.Clear();
     }
 }

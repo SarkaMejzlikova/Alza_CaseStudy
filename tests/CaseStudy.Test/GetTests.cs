@@ -6,6 +6,7 @@ using CaseStudy.Domain.Models;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 
+[Collection("Sequential")]
 public class GetTests
 {
     [Fact]
@@ -22,9 +23,6 @@ public class GetTests
             Quantity = 50
         };
 
-        var controller = new CaseStudyController();
-        controller.AddProductToStorage(record1);
-
         var record2 = new Product
         {
             ProductId = 2,
@@ -35,6 +33,9 @@ public class GetTests
             Quantity = 25
         };
 
+        var controller = new CaseStudyController();
+        controller.ClearStorage();
+        controller.AddProductToStorage(record1);
         controller.AddProductToStorage(record2);
 
         // Act
