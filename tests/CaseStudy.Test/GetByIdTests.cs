@@ -2,6 +2,7 @@ namespace CaseStudy.Test;
 
 using System;
 using CaseStudy.Domain.Models;
+using CaseStudy.Persistence;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,8 @@ public class GetByIdTest
     public void GetById_ValidId_ReturnsItem()
     {
         // Arrange
-        var controller = new CaseStudyController();
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
+        var controller = new CaseStudyController(context);
         controller.ClearStorage();
         
         var record1 = new Product
@@ -48,7 +50,8 @@ public class GetByIdTest
     public void GetById_InvalidId_ReturnsNotFound()
     {
         // Arrange
-        var controller = new CaseStudyController();
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
+        var controller = new CaseStudyController(context);
         controller.ClearStorage();
         
         var record1 = new Product

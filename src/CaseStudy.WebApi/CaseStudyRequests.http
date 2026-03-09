@@ -1,0 +1,47 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@host=http://localhost
+@port=5000
+
+
+//List all Products
+GET {{host}}:{{port}}/api/CaseStudy
+
+###
+
+//Get specific Product by id
+@productToGetId = 1
+GET {{host}}:{{port}}/api/CaseStudy/{{productToGetId}}
+
+###
+
+//Add new Product
+POST {{host}}:{{port}}/api/CaseStudy
+Content-Type: application/json
+
+{
+  "name": "Task with Category",
+  "description": "Task with Category",
+  "isCompleted": false,
+  "Category": "Work"
+}
+
+###
+
+//Update existing Product by id
+@productToUpdateId = 1
+
+PUT {{host}}:{{port}}/api/CaseStudy/{{productToUpdateId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Task",
+  "description": "Updated Description",
+  "isCompleted": false,
+  "category": "Home"
+}
+
+###
+
+//Delete exisiting ToDoItem by id
+@productToDeleteId = 1
+DELETE {{host}}:{{port}}/api/CaseStudy/{{productToDeleteId}}
