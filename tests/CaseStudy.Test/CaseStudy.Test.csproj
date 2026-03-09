@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CaseStudy.Domain\CaseStudy.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CaseStudy.Persistence\CaseStudy.Persistence.csproj" />
     <ProjectReference Include="..\..\src\CaseStudy.WebApi\CaseStudy.WebApi.csproj" />
   </ItemGroup>
 

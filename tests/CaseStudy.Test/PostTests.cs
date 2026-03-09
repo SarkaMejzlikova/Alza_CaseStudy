@@ -3,6 +3,7 @@ namespace CaseStudy.Test;
 using System;
 using CaseStudy.Domain.DTOs;
 using CaseStudy.Domain.Models;
+using CaseStudy.Persistence;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,8 @@ public class PostTests
     public void Post_ValidRequest_ReturnsNewItem()
     {
         // Arrange
-        var controller = new CaseStudyController();
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
+        var controller = new CaseStudyController(context);
         controller.ClearStorage();
 
         var request = new ProductCreateRequestDto

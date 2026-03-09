@@ -6,14 +6,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using CaseStudy.Domain.DTOs;
 using CaseStudy.Domain.Models;
+using CaseStudy.Persistence;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/[controller]")]
 public class CaseStudyController : ControllerBase
 {
-    private static List<Product> products = [];
+    //private static List<Product> products = [];
+
+    private readonly CaseStudyContext context;
+
+    public CaseStudyController(CaseStudyContext context)
+    {
+        this.context = context;
+
+        // Product product = new Product
+        // {
+        //     Name = "Black Diamond Hotforge",
+        //     Url = "https://www.alza.cz/sport/black-diamond-hotforge-hybrid-quickpack-12-cm-blue-d7160161.htm",
+        //     Price = 2319,
+        //     Description = "Expreska - drátový zámek a klasický zámek",
+        //     Quantity = 2
+        // };
+
+        // context.Add(product);
+        // context.SaveChanges();
+    }
+
 
     [HttpPost]
     public ActionResult<ProductGetResponseDto> Create(ProductCreateRequestDto request)
@@ -23,9 +45,10 @@ public class CaseStudyController : ControllerBase
         try
         {
             // doplním si id
-            product.ProductId = products.Count == 0 ? 1 : products.Max(p => p.ProductId) + 1;
+            //product.ProductId = products.Count == 0 ? 1 : products.Max(p => p.ProductId) + 1;
             // přidám produkt
-            products.Add(product);
+            context.Products.Add(product);
+            context.SaveChanges();
         }
         catch (Exception ex)
         {
@@ -44,7 +67,9 @@ public class CaseStudyController : ControllerBase
         List<Product> productsToGet;
         try
         {
-            productsToGet = products;
+            productsToGet = context.Products
+                .AsNoTracking()
+                .ToList();
         }
         catch (Exception ex)
         {
@@ -62,7 +87,9 @@ public class CaseStudyController : ControllerBase
         Product? productToGet;
         try
         {
-            productToGet  = products.Find(p => p.ProductId == productId);
+            productToGet = context.Products
+                .AsNoTracking()
+                .FirstOrDefault(p => p.ProductId == productId);
         }
         catch (Exception ex)
         {
@@ -79,17 +106,17 @@ public class CaseStudyController : ControllerBase
     {
         try
         {
-            // Index v listu
-            int index = products.FindIndex(p => p.ProductId == productId);
-            // neexistuje
-            if (index == -1) { return NotFound(); } // 404
-            // nové údaje pro produkt
             var updatedItem = request.ToDomain();
-            // doplním Id, které chci aktualizovat
-            updatedItem.ProductId = productId;
-            // aktualizace
-            products[index] = updatedItem;
+            var existing = context.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (existing == null) { return NotFound(); } // 404
 
+             existing.Name = updatedItem.Name;
+             existing.Url = updatedItem.Url;
+             existing.Price = updatedItem.Price;
+             existing.Description = updatedItem.Description;
+             existing.Quantity = updatedItem.Quantity;
+
+            context.SaveChanges();
         }
         catch (Exception ex)
         {
@@ -104,12 +131,14 @@ public class CaseStudyController : ControllerBase
     {
         try
         {
+            var itemToDelete = context.Products
+                .FirstOrDefault(p => p.ProductId == productId);
             // najdu konkrétní produkt
-            var product = products.Find(p => p.ProductId == productId);
             // neexistuje
-            if (product == null) { return NotFound(); } // 404
+            if (itemToDelete is null) { return NotFound(); } // 404
             // odstraním ze seznamu
-            products.Remove(product);
+            context.Products.Remove(itemToDelete);
+            context.SaveChanges();
         }
         catch (Exception ex)
         {
@@ -119,13 +148,17 @@ public class CaseStudyController : ControllerBase
         return NoContent(); // 204
     }
 
+    [NonAction]
     public void AddProductToStorage(Product product)
     {
-        products.Add(product);
+        context.Products.Add(product);
+        context.SaveChanges();
     }
 
+    [NonAction]
     public void ClearStorage()
     {
-        products.Clear();
+        context.Products.RemoveRange(context.Products);
+        context.SaveChanges();
     }
 }
