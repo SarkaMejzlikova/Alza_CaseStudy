@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CaseStudy.Domain.DTOs;
 using CaseStudy.Domain.Models;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -15,32 +16,107 @@ public class CaseStudyController : ControllerBase
     private static List<Product> products = [];
 
     [HttpPost]
-    public IActionResult Create()
+    public ActionResult<IEnumerable<ProductGetResponseDto>> Create(ProductCreateRequestDto request)
     {
-        return Ok();
+        // vytvořím nový produkt
+        var product = request.ToDomain();
+        try
+        {
+            // doplním si id
+            product.ProductId = products.Count == 0 ? 1 : products.Max(p => p.ProductId) + 1;
+            // přidám produkt
+            products.Add(product);
+
+            return CreatedAtAction(product.Name, product);
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message, null, StatusCodes.Status500InternalServerError);
+        }
     }
 
     [HttpGet]
-    public IActionResult Read()
+    public ActionResult<IEnumerable<ProductGetResponseDto>> Read()
     {
-        return Ok();
+        List<Product> productsToGet;
+        try
+        {
+            productsToGet = products;
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message, null, StatusCodes.Status500InternalServerError); // 500
+        }
+
+        return (productsToGet is null)
+            ? NotFound() // 404
+            : Ok(productsToGet.Select(ProductGetResponseDto.FromDomain)); // 200
     }
 
     [HttpGet("{productId:int}")]
     public IActionResult ReadById(int productId)
     {
-        return Ok();
+        try
+        {
+            // najdu konkrétní produkt
+            var product = products.Find(p => p.ProductId == productId);
+            // neexistuje
+            if (product == null) { return NotFound(); } // 404
+            // načtu údaje
+            var result = ProductGetResponseDto.FromDomain(product);
+
+            return Ok(); //200
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message, null, StatusCodes.Status500InternalServerError); // 500
+        }
     }
 
-    [HttpPut]
-    public IActionResult UpdateById()
+    [HttpPut("{productId:int}")]
+    public IActionResult UpdateById(int productId, [FromBody] ProductUpdateRequestDto request)
     {
-        return Ok();
+        try
+        {
+            // najdu konkrétní produkt
+            var product = products.Find(p => p.ProductId == productId);
+            // neexistuje
+            if (product == null) { return NotFound(); } // 404
+            // nové údaje pro produkt
+            var result = request.ToDomain();
+            // index v listu
+            int index = products.FindIndex(p => p.ProductId == productId);
+            // aktualizace
+            products[index] = result;
+            return NoContent(); // 204
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message, null, StatusCodes.Status500InternalServerError);
+        }
     }
 
-    [HttpDelete]
-    public IActionResult DeleteById()
+    [HttpDelete("{productId:int}")]
+    public IActionResult DeleteById(int productId)
     {
-        return Ok();
+        try
+        {
+            // najdu konkrétní produkt
+            var product = products.Find(p => p.ProductId == productId);
+            // neexistuje
+            if (product == null) { return NotFound(); } // 404
+            // odstraním ze seznamu
+            products.Remove(product);
+            return NoContent(); // 204
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message, null, StatusCodes.Status500InternalServerError);
+        }
+    }
+
+    public void AddProductToStorage(Product product)
+    {
+        products.Add(product);
     }
 }
