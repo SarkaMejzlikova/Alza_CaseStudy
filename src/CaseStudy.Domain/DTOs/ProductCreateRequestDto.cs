@@ -3,7 +3,7 @@ using CaseStudy.Domain.Models;
 
 namespace CaseStudy.Domain.DTOs;
 
-public record ProductCreateRequestDto(string Name, string Url, decimal Price, string Description, int Quantity)
+public record ProductCreateRequestDto(string Name, string Url, decimal Price, string? Description, int Quantity)
 {
     public Product ToDomain() => new()
     {
