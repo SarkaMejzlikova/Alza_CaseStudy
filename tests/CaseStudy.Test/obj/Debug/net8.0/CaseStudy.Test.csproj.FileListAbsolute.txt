@@ -236,3 +236,5 @@ C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\runtimes\wi
 C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\CaseStudy.Persistence.dll
 C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\CaseStudy.Persistence.pdb
+C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\Castle.Core.dll
+C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\NSubstitute.dll

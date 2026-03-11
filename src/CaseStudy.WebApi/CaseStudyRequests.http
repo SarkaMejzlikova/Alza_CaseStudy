@@ -19,10 +19,11 @@ POST {{host}}:{{port}}/api/CaseStudy
 Content-Type: application/json
 
 {
-  "name": "Task with Category",
-  "description": "Task with Category",
-  "isCompleted": false,
-  "Category": "Work"
+    "name": "Camp Kinetic",
+    "url": "https://www.alza.cz/sport/camp-kinetic-d12937061.htm",
+    "price": 1589,
+    "description": "Tlumič pádu - pro osoby s hmotností od 40 do 120 kg",
+    "quantity": 7
 }
 
 ###
@@ -34,10 +35,11 @@ PUT {{host}}:{{port}}/api/CaseStudy/{{productToUpdateId}}
 Content-Type: application/json
 
 {
-  "name": "Updated Task",
-  "description": "Updated Description",
-  "isCompleted": false,
-  "category": "Home"
+    "name": "Camp Kinetic",
+    "url": "https://www.alza.cz/sport/camp-kinetic-d12937061.htm",
+    "price": 1589,
+    "description": "Tlumič pádu - pro osoby s hmotností od 40 do 120 kg",
+    "quantity": 7
 }
 
 ###
