@@ -17,8 +17,6 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/[controller]")]
 public class CaseStudyController : ControllerBase
 {
-    //private static List<Product> products = [];
-
     private readonly IRepositoryAsync<Product> repository;
 
     public CaseStudyController(IRepositoryAsync<Product> repository)
@@ -30,7 +28,6 @@ public class CaseStudyController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ProductGetResponseDto>> CreateAsync(ProductCreateRequestDto request)
     {
-        // vytvořím nový produkt
         var product = request.ToDomain();
         try
         {
@@ -110,10 +107,7 @@ public class CaseStudyController : ControllerBase
         try
         {
             var itemToDelete = await repository.ReadByIdAsync(productId);
-            // najdu konkrétní produkt
-            // neexistuje
             if (itemToDelete is null) { return NotFound(); } // 404
-            // odstraním ze seznamu
             await repository.DeleteByIdAsync(productId);
         }
         catch (Exception ex)
