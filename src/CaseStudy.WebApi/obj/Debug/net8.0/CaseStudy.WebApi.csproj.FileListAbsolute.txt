@@ -156,3 +156,8 @@ C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\runtimes\wi
 C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\CaseStudy.Persistence.dll
 C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\CaseStudy.Persistence.pdb
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Skoleni\Alza\Alza_CaseStudy\src\CaseStudy.WebApi\obj\Debug\net8.0\CaseStudy.WebApi.MvcApplicationPartsAssemblyInfo.cs

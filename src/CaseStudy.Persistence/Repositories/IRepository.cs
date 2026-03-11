@@ -2,13 +2,13 @@ namespace CaseStudy.Persistence.Repositories;
 
 using CaseStudy.Domain.Models;
 
-public interface IRepository<T>
+public interface IRepositoryAsync<T>
     where T : class
 {
-    public void Create(T product);
-    public IEnumerable<T> ReadAll();
-    public T? ReadById(int productId);
-    public void Update(T product);
-    public void DeleteById(int productId);
+    public Task CreateAsync(T item);
+    public Task<IEnumerable<T>> ReadAllAsync();
+    public Task<T?> ReadByIdAsync(int id);
+    public Task UpdateAsync(T item);
+    public Task DeleteByIdAsync(int id);
 
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "65FydhTSsBdOaBg6B/buwOgZoFFo6rnZ+8V8pASAs87KsrZX8md07rgNk8ryeyq/Nlsxi/bI6oC/YUCViBWGHw==",
+  "dgSpecHash": "RDRujwR81rT5nGI8LyyGZ2mf+gW6aiFBZkVLt44Zv44NmIU5NY3kYQoG2lUQlfwAMMDY+sEdO//M0pQEBmzVAQ==",
   "success": true,
   "projectFilePath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.WebApi\\CaseStudy.WebApi.csproj",
   "expectedPackageFiles": [
@@ -32,11 +32,15 @@
     "C:\\Users\\smejzlikova\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.10\\microsoft.extensions.logging.abstractions.9.0.10.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\microsoft.extensions.options\\9.0.10\\microsoft.extensions.options.9.0.10.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.10\\microsoft.extensions.primitives.9.0.10.nupkg.sha512",
+    "C:\\Users\\smejzlikova\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.10\\sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.10\\sqlitepclraw.provider.e_sqlite3.2.1.10.nupkg.sha512",
+    "C:\\Users\\smejzlikova\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.9.0\\swashbuckle.aspnetcore.swagger.6.9.0.nupkg.sha512",
+    "C:\\Users\\smejzlikova\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.9.0\\swashbuckle.aspnetcore.swaggergen.6.9.0.nupkg.sha512",
+    "C:\\Users\\smejzlikova\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.9.0\\swashbuckle.aspnetcore.swaggerui.6.9.0.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\system.composition\\7.0.0\\system.composition.7.0.0.nupkg.sha512",

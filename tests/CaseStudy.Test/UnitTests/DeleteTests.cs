@@ -7,17 +7,16 @@ using CaseStudy.Persistence.Repositories;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 
 [Collection("Sequential")]
 public class DeleteTests
 {
     [Fact]
-    public void Delete_DeleteByIdValidItemId_ReturnsNoContent()
+    public async Task Delete_DeleteByIdValidItemId_ReturnsNoContent()
     {
         // Arrange
-        using var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
-
-        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
         var controller = new CaseStudyController(repositoryMock);
 
         var record1 = new Product
@@ -31,55 +30,55 @@ public class DeleteTests
         };
 
 
-        repositoryMock.ReadById(1).Returns(record1);
+        repositoryMock.ReadByIdAsync(1).Returns(record1);
 
         // Act
-        var result = controller.DeleteById(1);
+        var result = await controller.DeleteByIdAsync(1);
 
         // Assert
         Assert.IsType<NoContentResult>(result);
 
-        repositoryMock.Received(1).ReadById(1);
-        repositoryMock.Received(1).DeleteById(1);
+        await repositoryMock.Received(1).ReadByIdAsync(1);
+        await repositoryMock.Received(1).DeleteByIdAsync(1);
     }
 
     [Fact]
-    public void Delete_DeleteByIdInvalidItemId_ReturnsNotFound()
+    public async Task Delete_DeleteByIdInvalidItemId_ReturnsNotFound()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
         var controller = new CaseStudyController(repositoryMock);
 
-        repositoryMock.ReadById(1).Returns((Product?)null);
+        repositoryMock.ReadByIdAsync(Arg.Any<int>()).Returns(null as Product);
 
         // Act
-        var result = controller.DeleteById(1);
+        var result = await controller.DeleteByIdAsync(1);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
 
-        repositoryMock.Received(1).ReadById(1);
-        repositoryMock.DidNotReceive().DeleteById(Arg.Any<int>());
+        await repositoryMock.Received(1).ReadByIdAsync(1);
+        await repositoryMock.DidNotReceive().DeleteByIdAsync(Arg.Any<int>());
     }
 
     [Fact]
-    public void Delete_DeleteByIdUnhandledException_ReturnsInternalServerError()
+    public async Task Delete_DeleteByIdUnhandledException_ReturnsInternalServerError()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
-        repositoryMock.ReadById(Arg.Any<int>()).Returns(x => throw new Exception("Database error"));
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
+        repositoryMock.ReadByIdAsync(Arg.Any<int>()).Throws(new Exception());
         var controller = new CaseStudyController(repositoryMock);
 
         // Act
-        var result = controller.DeleteById(1);
+        var result = await controller.DeleteByIdAsync(1);
         var resultResult = result as ObjectResult;
 
         // Assert
         Assert.IsType<ObjectResult>(result);
         Assert.Equal(500, resultResult?.StatusCode);
 
-        repositoryMock.Received(1).ReadById(1);
-        repositoryMock.DidNotReceive().DeleteById(Arg.Any<int>());
+        await repositoryMock.Received(1).ReadByIdAsync(1);
+        await repositoryMock.DidNotReceive().DeleteByIdAsync(Arg.Any<int>());
     }
 }
 

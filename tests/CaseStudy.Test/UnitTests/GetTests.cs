@@ -13,10 +13,10 @@ using NSubstitute;
 public class GetTests
 {
     [Fact]
-    public void Get_ReadWhenSomeItemAvailable_ReturnsOk()
+    public async Task Get_ReadWhenSomeItemAvailable_ReturnsOk()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
         var controller = new CaseStudyController(repositoryMock);
 
         var record1 = new Product
@@ -30,10 +30,10 @@ public class GetTests
         };
 
         var someItemList = new List<Product> { record1 };
-        repositoryMock.ReadAll().Returns(someItemList);
+        repositoryMock.ReadAllAsync().Returns(someItemList);
 
         // Act
-        var result = controller.Read();
+        var result = await controller.ReadAsync();
         var resultResult = result.Result;
         var value = result.GetValue();
 
@@ -44,6 +44,6 @@ public class GetTests
         Assert.Equal(record1.ProductId, value.First().ProductId);
         Assert.Equal(record1.Name, value.First().Name);
 
-        repositoryMock.Received(1).ReadAll();
+        await repositoryMock.Received(1).ReadAllAsync();
     }
 }
