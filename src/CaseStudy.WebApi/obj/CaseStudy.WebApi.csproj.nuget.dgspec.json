@@ -64,14 +64,14 @@
         }
       }
     },
-    "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj": {
+    "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj",
+        "projectUniqueName": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj",
         "projectName": "CaseStudy.Persistence",
-        "projectPath": "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj",
+        "projectPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj",
         "packagesPath": "C:\\Users\\smejzlikova\\.nuget\\packages\\",
-        "outputPath": "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\obj\\",
+        "outputPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages"
@@ -174,8 +174,8 @@
               "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Domain\\CaseStudy.Domain.csproj": {
                 "projectPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Domain\\CaseStudy.Domain.csproj"
               },
-              "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj": {
-                "projectPath": "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj"
+              "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj": {
+                "projectPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj"
               }
             }
           }
