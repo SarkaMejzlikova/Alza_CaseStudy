@@ -13,10 +13,10 @@ using NSubstitute;
 public class PostTests
 {
     [Fact]
-    public void Post_ValidRequest_ReturnsNewItem()
+    public async Task Post_ValidRequest_ReturnsNewItem()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
         var controller = new CaseStudyController(repositoryMock);
         
         var request = new ProductCreateRequestDto
@@ -29,7 +29,7 @@ public class PostTests
         );
 
         // Act
-        var result = controller.Create(request);
+        var result = await controller.CreateAsync(request);
         var resultResult = result.Result;
         var value = result.GetValue();
 

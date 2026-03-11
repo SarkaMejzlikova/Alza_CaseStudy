@@ -13,7 +13,7 @@ using NSubstitute;
 public class PostTests
 {
     [Fact]
-    public void Post_ValidRequest_ReturnsNewItem()
+    public async Task Post_ValidRequest_ReturnsNewItem()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -21,7 +21,7 @@ public class PostTests
         var controller = new CaseStudyController(repository);
 
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         
         var request = new ProductCreateRequestDto
         (
@@ -33,7 +33,7 @@ public class PostTests
         );
 
         // Act
-        var result = controller.Create(request);
+        var result = await controller.CreateAsync(request);
         var resultResult = result.Result;
         var value = result.GetValue();
 

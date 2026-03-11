@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 public class DeleteTests
 {
     [Fact]
-    public void Delete_ValidId_ReturnsNoContent()
+    public async Task Delete_ValidId_ReturnsNoContent()
     {
         // Arrange
         using var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -20,7 +20,7 @@ public class DeleteTests
         var controller = new CaseStudyController(repository);
 
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         var record1 = new Product
         {
@@ -32,18 +32,18 @@ public class DeleteTests
             Quantity = 50
         };
 
-        context.Products.Add(record1);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.SaveChangesAsync();
 
         // Act
-        var result = controller.DeleteById(record1.ProductId);
+        var result = await controller.DeleteByIdAsync(record1.ProductId);
 
         // Assert
         Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
-    public void Delete_InvalidId_ReturnsNotFound()
+    public async Task Delete_InvalidId_ReturnsNotFound()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -52,7 +52,7 @@ public class DeleteTests
         var controller = new CaseStudyController(repository);
 
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         var record1 = new Product
         {
@@ -64,12 +64,12 @@ public class DeleteTests
             Quantity = 50
         };
 
-        context.Products.Add(record1);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.SaveChangesAsync();
 
         // Act
         var invalidId = -1;
-        var result = controller.DeleteById(invalidId);
+        var result = await controller.DeleteByIdAsync(invalidId);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);

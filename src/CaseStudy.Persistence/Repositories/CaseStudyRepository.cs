@@ -1,8 +1,10 @@
 namespace CaseStudy.Persistence.Repositories;
 
+using System.Threading.Tasks;
 using CaseStudy.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
-public class CaseStudyRepository : IRepository<Product>
+public class CaseStudyRepository : IRepositoryAsync<Product>
 {
     private readonly CaseStudyContext context;
 
@@ -11,33 +13,33 @@ public class CaseStudyRepository : IRepository<Product>
         this.context = context;
     }
 
-    public void Create(Product product)
+    public async Task CreateAsync(Product product)
     {
-        context.Products.Add(product);
-        context.SaveChanges();
+        await context.Products.AddAsync(product);
+        await context.SaveChangesAsync();
     }
 
-    public IEnumerable<Product> ReadAll()
+    public async Task<IEnumerable<Product>> ReadAllAsync()
     {
-        return context.Products.ToList();
+        return await context.Products.ToListAsync();
     }
 
-    public Product? ReadById(int productId)
+    public async Task<Product?> ReadByIdAsync(int productId)
     {
-        return context.Products.Find(productId);
+        return await context.Products.FindAsync(productId);
     }
 
-    public void Update(Product product)
+    public async Task UpdateAsync(Product product)
     {
-        var foundItem = context.Products.Find(product.ProductId) ?? throw new ArgumentOutOfRangeException($"Product with ID {product.ProductId} not found.");
+        var foundItem = await context.Products.FindAsync(product.ProductId) ?? throw new ArgumentOutOfRangeException($"Product with ID {product.ProductId} not found.");
         context.Entry(foundItem).CurrentValues.SetValues(product);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 
-    public void DeleteById(int productId)
+    public async Task DeleteByIdAsync(int productId)
     {
-        var item = context.Products.Find(productId) ?? throw new ArgumentOutOfRangeException($"Product with ID {productId} not found.");
+        var item = await context.Products.FindAsync(productId) ?? throw new ArgumentOutOfRangeException($"Product with ID {productId} not found.");
         context.Products.Remove(item);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 }
