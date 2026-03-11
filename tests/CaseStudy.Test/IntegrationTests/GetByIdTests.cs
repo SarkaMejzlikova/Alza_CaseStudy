@@ -1,8 +1,9 @@
-namespace CaseStudy.Test;
+namespace CaseStudy.Test.IntegrationTests;
 
 using System;
 using CaseStudy.Domain.Models;
 using CaseStudy.Persistence;
+using CaseStudy.Persistence.Repositories;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,14 @@ public class GetByIdTest
     public void GetById_ValidId_ReturnsItem()
     {
         // Arrange
-        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
-        var controller = new CaseStudyController(context);
-        controller.ClearStorage();
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
+
+        var repository = new CaseStudyRepository(context);
+        var controller = new CaseStudyController(repository);
         
+        context.Products.RemoveRange(context.Products);
+        context.SaveChanges();
+
         var record1 = new Product
         {
             ProductId = 1,
@@ -27,7 +32,8 @@ public class GetByIdTest
             Quantity = 50
         };
 
-        controller.AddProductToStorage(record1);
+        context.Products.Add(record1);
+        context.SaveChanges();
 
         // Act
         var result = controller.ReadById(record1.ProductId);
@@ -50,10 +56,13 @@ public class GetByIdTest
     public void GetById_InvalidId_ReturnsNotFound()
     {
         // Arrange
-        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
-        var controller = new CaseStudyController(context);
-        controller.ClearStorage();
+        var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
+        var repository = new CaseStudyRepository(context);
+        var controller = new CaseStudyController(repository);
         
+        context.Products.RemoveRange(context.Products);
+        context.SaveChanges();
+
         var record1 = new Product
         {
             ProductId = 1,
@@ -64,7 +73,8 @@ public class GetByIdTest
             Quantity = 50
         };
 
-        controller.AddProductToStorage(record1);
+        context.Products.Add(record1);
+        context.SaveChanges();
 
         // Act
         var invalidId = -1;

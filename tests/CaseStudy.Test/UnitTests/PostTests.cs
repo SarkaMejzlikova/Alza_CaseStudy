@@ -1,11 +1,13 @@
-namespace CaseStudy.Test;
+namespace CaseStudy.Test.UnitTests;
 
 using System;
 using CaseStudy.Domain.DTOs;
 using CaseStudy.Domain.Models;
 using CaseStudy.Persistence;
+using CaseStudy.Persistence.Repositories;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
+using NSubstitute;
 
 [Collection("Sequential")]
 public class PostTests
@@ -14,10 +16,9 @@ public class PostTests
     public void Post_ValidRequest_ReturnsNewItem()
     {
         // Arrange
-        var context = new CaseStudyContext("DataSource=../../../../../src/data/localdb.db");
-        var controller = new CaseStudyController(context);
-        controller.ClearStorage();
-
+        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var controller = new CaseStudyController(repositoryMock);
+        
         var request = new ProductCreateRequestDto
         (
             Name: "Karabina Camp Steel",

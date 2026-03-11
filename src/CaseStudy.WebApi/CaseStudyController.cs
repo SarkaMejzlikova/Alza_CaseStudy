@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using CaseStudy.Domain.DTOs;
 using CaseStudy.Domain.Models;
 using CaseStudy.Persistence;
+using CaseStudy.Persistence.Repositories;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 [ApiController]
@@ -17,23 +19,11 @@ public class CaseStudyController : ControllerBase
 {
     //private static List<Product> products = [];
 
-    private readonly CaseStudyContext context;
+    private readonly IRepository<Product> repository;
 
-    public CaseStudyController(CaseStudyContext context)
+    public CaseStudyController(IRepository<Product> repository)
     {
-        this.context = context;
-
-        // Product product = new Product
-        // {
-        //     Name = "Black Diamond Hotforge",
-        //     Url = "https://www.alza.cz/sport/black-diamond-hotforge-hybrid-quickpack-12-cm-blue-d7160161.htm",
-        //     Price = 2319,
-        //     Description = "Expreska - drátový zámek a klasický zámek",
-        //     Quantity = 2
-        // };
-
-        // context.Add(product);
-        // context.SaveChanges();
+        this.repository = repository;
     }
 
 
@@ -44,11 +34,7 @@ public class CaseStudyController : ControllerBase
         var product = request.ToDomain();
         try
         {
-            // doplním si id
-            //product.ProductId = products.Count == 0 ? 1 : products.Max(p => p.ProductId) + 1;
-            // přidám produkt
-            context.Products.Add(product);
-            context.SaveChanges();
+            repository.Create(product);
         }
         catch (Exception ex)
         {
@@ -57,19 +43,17 @@ public class CaseStudyController : ControllerBase
 
         return CreatedAtAction(
             nameof(ReadById),
-            new { product = product.ProductId },
+            new { productId = product.ProductId },
             ProductGetResponseDto.FromDomain(product)); //201
     }
 
     [HttpGet]
     public ActionResult<IEnumerable<ProductGetResponseDto>> Read()
     {
-        List<Product> productsToGet;
+        IEnumerable<Product> productsToGet;
         try
         {
-            productsToGet = context.Products
-                .AsNoTracking()
-                .ToList();
+            productsToGet = repository.ReadAll();
         }
         catch (Exception ex)
         {
@@ -87,9 +71,7 @@ public class CaseStudyController : ControllerBase
         Product? productToGet;
         try
         {
-            productToGet = context.Products
-                .AsNoTracking()
-                .FirstOrDefault(p => p.ProductId == productId);
+            productToGet = repository.ReadById(productId);
         }
         catch (Exception ex)
         {
@@ -107,16 +89,12 @@ public class CaseStudyController : ControllerBase
         try
         {
             var updatedItem = request.ToDomain();
-            var existing = context.Products.FirstOrDefault(p => p.ProductId == productId);
-            if (existing == null) { return NotFound(); } // 404
+            updatedItem.ProductId = productId;
 
-             existing.Name = updatedItem.Name;
-             existing.Url = updatedItem.Url;
-             existing.Price = updatedItem.Price;
-             existing.Description = updatedItem.Description;
-             existing.Quantity = updatedItem.Quantity;
+            var itemToUpdate = repository.ReadById(productId);
+            if (itemToUpdate == null) { return NotFound(); } // 404
 
-            context.SaveChanges();
+            repository.Update(updatedItem);
         }
         catch (Exception ex)
         {
@@ -131,14 +109,12 @@ public class CaseStudyController : ControllerBase
     {
         try
         {
-            var itemToDelete = context.Products
-                .FirstOrDefault(p => p.ProductId == productId);
+            var itemToDelete = repository.ReadById(productId);
             // najdu konkrétní produkt
             // neexistuje
             if (itemToDelete is null) { return NotFound(); } // 404
             // odstraním ze seznamu
-            context.Products.Remove(itemToDelete);
-            context.SaveChanges();
+            repository.DeleteById(productId);
         }
         catch (Exception ex)
         {
@@ -146,19 +122,5 @@ public class CaseStudyController : ControllerBase
         }
 
         return NoContent(); // 204
-    }
-
-    [NonAction]
-    public void AddProductToStorage(Product product)
-    {
-        context.Products.Add(product);
-        context.SaveChanges();
-    }
-
-    [NonAction]
-    public void ClearStorage()
-    {
-        context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
     }
 }
