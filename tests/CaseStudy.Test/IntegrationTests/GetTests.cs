@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 public class GetTests
 {
     [Fact]
-    public void Get_AllProducts_ReturnsAllProducts()
+    public async Task Get_AllProducts_ReturnsAllProducts()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -20,7 +20,7 @@ public class GetTests
         var controller = new CaseStudyController(repository);
 
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         
         var record1 = new Product
         {
@@ -42,12 +42,12 @@ public class GetTests
             Quantity = 25
         };
 
-        context.Products.Add(record1);
-        context.Products.Add(record2);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.Products.AddAsync(record2);
+        await context.SaveChangesAsync();
 
         // Act
-        var result = controller.Read();
+        var result = await controller.ReadAsync();
         var value = result.GetValue();
 
         // Assert
@@ -63,7 +63,7 @@ public class GetTests
     }
 
     [Fact]
-    public void Get_ReadWhenNoItemAvailable_ReturnsNotFound()
+    public async Task Get_ReadWhenNoItemAvailable_ReturnsNotFound()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -71,7 +71,7 @@ public class GetTests
         var controller = new CaseStudyController(repository);
 
         // Act
-        var result = controller.Read();
+        var result = await controller.ReadAsync();
 
         // Assert
         Assert.IsType<ActionResult<IEnumerable<ProductGetResponseDto>>>(result);

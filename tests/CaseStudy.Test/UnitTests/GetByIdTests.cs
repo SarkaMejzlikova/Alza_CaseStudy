@@ -7,15 +7,16 @@ using CaseStudy.Persistence.Repositories;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 
 [Collection("Sequential")]
 public class GetByIdTest
 {
      [Fact]
-    public void Get_ReadByIdWhenSomeItemAvailable_ReturnsOk()
+    public async Task Get_ReadByIdWhenSomeItemAvailable_ReturnsOk()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
         var controller = new CaseStudyController(repositoryMock);
 
         var record1 = new Product
@@ -28,10 +29,10 @@ public class GetByIdTest
             Quantity = 50
         };
 
-        repositoryMock.ReadById(1).Returns(record1);
+        repositoryMock.ReadByIdAsync(Arg.Any<int>()).Returns(record1);
 
         // Act
-        var result = controller.ReadById(1);
+        var result = await controller.ReadByIdAsync(1);
         var resultResult = result.Result;
         var value = result.GetValue();
 
@@ -45,38 +46,38 @@ public class GetByIdTest
         Assert.Equal(record1.Description, value.Description);
         Assert.Equal(record1.Quantity, value.Quantity);
 
-        repositoryMock.Received(1).ReadById(1);
+        await repositoryMock.Received(1).ReadByIdAsync(1);
     }
 
     [Fact]
-    public void Get_ReadByIdWhenItemIsNull_ReturnsNotFound()
+    public async Task Get_ReadByIdWhenItemIsNull_ReturnsNotFound()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
         var controller = new CaseStudyController(repositoryMock);
 
-        repositoryMock.ReadById(Arg.Any<int>()).Returns((Product?)null);
+        repositoryMock.ReadByIdAsync(Arg.Any<int>()).Returns((Product?)null);
 
         // Act
-        var result = controller.ReadById(1);
+        var result = await controller.ReadByIdAsync(1);
         var resultResult = result.Result;
 
         // Assert
         Assert.IsType<NotFoundResult>(resultResult);
 
-        repositoryMock.Received(1).ReadById(1);
+        await repositoryMock.Received(1).ReadByIdAsync(1);
     }
 
     [Fact]
-    public void Get_ReadByIdUnhandledException_ReturnsInternalServerError()
+    public async Task Get_ReadByIdUnhandledException_ReturnsInternalServerError()
     {
         // Arrange
-        var repositoryMock = Substitute.For<IRepository<Product>>();
-        repositoryMock.ReadById(Arg.Any<int>()).Returns(x => throw new Exception("Database error"));
+        var repositoryMock = Substitute.For<IRepositoryAsync<Product>>();
+        repositoryMock.ReadByIdAsync(Arg.Any<int>()).Throws(new Exception());
         var controller = new CaseStudyController(repositoryMock);
 
         // Act
-        var result = controller.ReadById(1);
+        var result = await controller.ReadByIdAsync(1);
         var resultResult = result.Result;
 
         // Assert
@@ -84,6 +85,6 @@ public class GetByIdTest
         var objectResult = resultResult as ObjectResult;
         Assert.Equal(500, objectResult?.StatusCode);
 
-        repositoryMock.Received(1).ReadById(1);
+        await repositoryMock.Received(1).ReadByIdAsync(1);
     }
 }

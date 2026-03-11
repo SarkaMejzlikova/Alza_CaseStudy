@@ -19,22 +19,22 @@ public class CaseStudyController : ControllerBase
 {
     //private static List<Product> products = [];
 
-    private readonly IRepository<Product> repository;
+    private readonly IRepositoryAsync<Product> repository;
 
-    public CaseStudyController(IRepository<Product> repository)
+    public CaseStudyController(IRepositoryAsync<Product> repository)
     {
         this.repository = repository;
     }
 
 
     [HttpPost]
-    public ActionResult<ProductGetResponseDto> Create(ProductCreateRequestDto request)
+    public async Task<ActionResult<ProductGetResponseDto>> CreateAsync(ProductCreateRequestDto request)
     {
         // vytvořím nový produkt
         var product = request.ToDomain();
         try
         {
-            repository.Create(product);
+            await repository.CreateAsync(product);
         }
         catch (Exception ex)
         {
@@ -42,18 +42,18 @@ public class CaseStudyController : ControllerBase
         }
 
         return CreatedAtAction(
-            nameof(ReadById),
+            nameof(ReadByIdAsync),
             new { productId = product.ProductId },
             ProductGetResponseDto.FromDomain(product)); //201
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<ProductGetResponseDto>> Read()
+    public async Task <ActionResult<IEnumerable<ProductGetResponseDto>>> ReadAsync()
     {
         IEnumerable<Product> productsToGet;
         try
         {
-            productsToGet = repository.ReadAll();
+            productsToGet = await repository.ReadAllAsync();
         }
         catch (Exception ex)
         {
@@ -66,12 +66,12 @@ public class CaseStudyController : ControllerBase
     }
 
     [HttpGet("{productId:int}")]
-    public ActionResult<ProductGetResponseDto> ReadById(int productId)
+    public async Task <ActionResult<ProductGetResponseDto>> ReadByIdAsync(int productId)
     {
         Product? productToGet;
         try
         {
-            productToGet = repository.ReadById(productId);
+            productToGet = await repository.ReadByIdAsync(productId);
         }
         catch (Exception ex)
         {
@@ -84,17 +84,17 @@ public class CaseStudyController : ControllerBase
     }
 
     [HttpPut("{productId:int}")]
-    public IActionResult UpdateById(int productId, [FromBody] ProductUpdateRequestDto request)
+    public async Task <IActionResult> UpdateByIdAsync(int productId, [FromBody] ProductUpdateRequestDto request)
     {
         try
         {
             var updatedItem = request.ToDomain();
             updatedItem.ProductId = productId;
 
-            var itemToUpdate = repository.ReadById(productId);
+            var itemToUpdate = await repository.ReadByIdAsync(productId);
             if (itemToUpdate == null) { return NotFound(); } // 404
 
-            repository.Update(updatedItem);
+            await repository.UpdateAsync(updatedItem);
         }
         catch (Exception ex)
         {
@@ -105,16 +105,16 @@ public class CaseStudyController : ControllerBase
     }
 
     [HttpDelete("{productId:int}")]
-    public IActionResult DeleteById(int productId)
+    public async Task <IActionResult> DeleteByIdAsync(int productId)
     {
         try
         {
-            var itemToDelete = repository.ReadById(productId);
+            var itemToDelete = await repository.ReadByIdAsync(productId);
             // najdu konkrétní produkt
             // neexistuje
             if (itemToDelete is null) { return NotFound(); } // 404
             // odstraním ze seznamu
-            repository.DeleteById(productId);
+            await repository.DeleteByIdAsync(productId);
         }
         catch (Exception ex)
         {

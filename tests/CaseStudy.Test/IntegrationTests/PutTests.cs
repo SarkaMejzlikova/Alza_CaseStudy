@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 public class PutTests
 {
     [Fact]
-    public void Put_ValidId_ReturnsNoContent()
+    public async Task Put_ValidId_ReturnsNoContent()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -20,7 +20,7 @@ public class PutTests
         var controller = new CaseStudyController(repository);
 
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         var record1 = new Product
         {
@@ -32,8 +32,8 @@ public class PutTests
             Quantity = 50
         };
 
-        context.Products.Add(record1);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.SaveChangesAsync();
 
         var request = new ProductUpdateRequestDto(
             Name: "Karabina",
@@ -44,14 +44,14 @@ public class PutTests
         );
 
         // Act
-        var result = controller.UpdateById(record1.ProductId, request);
+        var result = await controller.UpdateByIdAsync(record1.ProductId, request);
 
         // Assert
         Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
-    public void Put_InvalidId_ReturnsNotFound()
+    public async Task Put_InvalidId_ReturnsNotFound()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -59,7 +59,7 @@ public class PutTests
         var controller = new CaseStudyController(repository);
 
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         
         var record1 = new Product
         {
@@ -71,8 +71,8 @@ public class PutTests
             Quantity = 50
         };
 
-        context.Products.Add(record1);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.SaveChangesAsync();
 
         var request = new ProductUpdateRequestDto(
             Name: "Karabina",
@@ -84,7 +84,7 @@ public class PutTests
 
         // Act
         var invalidId = -1;
-        var result = controller.UpdateById(invalidId, request);
+        var result = await controller.UpdateByIdAsync(invalidId, request);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);

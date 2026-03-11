@@ -238,3 +238,7 @@ C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\CaseStudy.P
 C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\CaseStudy.Persistence.pdb
 C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\Castle.Core.dll
 C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\NSubstitute.dll
+C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Skoleni\Alza\Alza_CaseStudy\tests\CaseStudy.Test\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll

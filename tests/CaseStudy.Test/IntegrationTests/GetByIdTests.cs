@@ -6,12 +6,13 @@ using CaseStudy.Persistence;
 using CaseStudy.Persistence.Repositories;
 using CaseStudy.WebApi;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 
 [Collection("Sequential")]
 public class GetByIdTest
 {
     [Fact]
-    public void GetById_ValidId_ReturnsItem()
+    public async Task GetById_ValidId_ReturnsItem()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -20,7 +21,7 @@ public class GetByIdTest
         var controller = new CaseStudyController(repository);
         
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         var record1 = new Product
         {
@@ -32,11 +33,11 @@ public class GetByIdTest
             Quantity = 50
         };
 
-        context.Products.Add(record1);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.SaveChangesAsync();
 
         // Act
-        var result = controller.ReadById(record1.ProductId);
+        var result = await controller.ReadByIdAsync(record1.ProductId);
         var resultResult = result.Result;
         var value = result.GetValue();
 
@@ -53,7 +54,7 @@ public class GetByIdTest
     }
 
     [Fact]
-    public void GetById_InvalidId_ReturnsNotFound()
+    public async Task GetById_InvalidId_ReturnsNotFound()
     {
         // Arrange
         var context = new CaseStudyContext("DataSource=../../../../../src/data/testdb.db");
@@ -61,7 +62,7 @@ public class GetByIdTest
         var controller = new CaseStudyController(repository);
         
         context.Products.RemoveRange(context.Products);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         var record1 = new Product
         {
@@ -73,12 +74,12 @@ public class GetByIdTest
             Quantity = 50
         };
 
-        context.Products.Add(record1);
-        context.SaveChanges();
+        await context.Products.AddAsync(record1);
+        await context.SaveChangesAsync();
 
         // Act
         var invalidId = -1;
-        var result = controller.ReadById(invalidId);
+        var result = await controller.ReadByIdAsync(invalidId);
         var resultResult = result.Result;
 
         // Assert
