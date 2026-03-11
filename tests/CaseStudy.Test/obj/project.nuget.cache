@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PE6TAoq2zyBzZRrnUjuSN8kGqnKrhCHM6x9jlUQ5uVBYll8RvvTwBNsZnv3vWhjeG5gr/BQ0Ii77RxYkE/ZwfA==",
+  "dgSpecHash": "zI8jdmmKF4HI+7gnTfKdalTgtgSRetynpElXXeBaNHNDOuY6Ok8N/Z59GwL/9HRJLLV68m5eZe2h1lMbvmq5jA==",
   "success": true,
   "projectFilePath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\tests\\CaseStudy.Test\\CaseStudy.Test.csproj",
   "expectedPackageFiles": [
@@ -144,12 +144,5 @@
     "C:\\Users\\smejzlikova\\.nuget\\packages\\xunit.extensibility.execution\\2.4.2\\xunit.extensibility.execution.2.4.2.nupkg.sha512",
     "C:\\Users\\smejzlikova\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Skoleni\\Alza\\Alza_CaseStudy\\tests\\CaseStudy.Test\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

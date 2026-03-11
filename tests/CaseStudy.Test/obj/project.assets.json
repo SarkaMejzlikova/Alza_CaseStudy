@@ -8847,8 +8847,8 @@
             "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Domain\\CaseStudy.Domain.csproj": {
               "projectPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Domain\\CaseStudy.Domain.csproj"
             },
-            "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj": {
-              "projectPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj"
+            "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj": {
+              "projectPath": "c:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.Persistence\\CaseStudy.Persistence.csproj"
             },
             "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.WebApi\\CaseStudy.WebApi.csproj": {
               "projectPath": "C:\\Skoleni\\Alza\\Alza_CaseStudy\\src\\CaseStudy.WebApi\\CaseStudy.WebApi.csproj"
@@ -8910,13 +8910,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Skoleni\\Alza\\Alza_CaseStudy\\tests\\CaseStudy.Test\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
